@@ -12,7 +12,7 @@ import java.util.List;
 public class DevToPodcastsPage {
     WebDriver driver;
     WebDriverWait wait;
-    String url = "https://dev/to/pod";
+    String url = "https://dev.to/pod";
 
     @FindBy(tagName = "h3")
     List<WebElement> podcastList;
@@ -23,11 +23,11 @@ public class DevToPodcastsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public DevToSinglepodcastPage selectFourthPodcast() {
+    public DevToSinglePodcastPage selectFourthPodcast() {
         wait.until(ExpectedConditions.urlToBe(url));
         wait.until(ExpectedConditions.visibilityOfAllElements(podcastList));
         podcastList.get(3).click();
-        return new DevToSinglepodcastPage(this.driver, this.wait);
+        return new DevToSinglePodcastPage(this.driver, this.wait);
     }
 
 

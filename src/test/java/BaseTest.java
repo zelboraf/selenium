@@ -1,6 +1,5 @@
 import devToPages.*;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
@@ -9,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
@@ -64,12 +62,12 @@ public class BaseTest {
     public void searchBarTesting() {
         DevToMainPage devToMainPage = new DevToMainPage(driver, wait);
         String searchText = "testing";
-        DevToSearchResults devToSearchResults = devToMainPage.search(searchText);
+        DevToSearchResultsPage devToSearchResultsPage = devToMainPage.search(searchText);
 
-        String searchingUrlWithText = devToSearchResults.url + searchText;
+        String searchingUrlWithText = devToSearchResultsPage.url + searchText;
         wait.until(ExpectedConditions.urlToBe(searchingUrlWithText));
 
-        ArrayList<String> postTitleList = devToSearchResults.getTopThreePostTitles();
+        ArrayList<String> postTitleList = devToSearchResultsPage.getTopThreePostTitles();
         for (int i = 0; i < 3; i++) {
             String postTileText = postTitleList.get(i).toLowerCase();
             assertTrue(postTileText.contains(searchText));
@@ -98,6 +96,11 @@ public class BaseTest {
     public void playFourthPodcast(){
         DevToMainPage devToMainPage = new DevToMainPage(driver, wait);
         DevToPodcastsPage devToPodcastsPage = devToMainPage.goToPodcasts();
+        DevToSinglePodcastPage devToSinglepodcastPage = devToPodcastsPage.selectFourthPodcast();
+        devToSinglepodcastPage.playPodcast();
+
+        assertTrue("Secected podcast is not playing", devToSinglepodcastPage.isPlaying());
+
 
 //        WebElement podcasts = driver.findElement(By.cssSelector("a[href=\"/pod\"]"));
 //        highlightElement(driver, podcasts);

@@ -35,9 +35,9 @@ public class DevToMainPage {
         return new DevToWeekPage(this.driver, this.wait);
     }
 
-    public DevToSearchResults search(String searchText){
+    public DevToSearchResultsPage search(String searchText){
         searchBox.sendKeys(searchText + Keys.RETURN);
-        return new DevToSearchResults(this.driver, this.wait);
+        return new DevToSearchResultsPage(this.driver, this.wait);
     }
 
     public DevToPodcastsPage goToPodcasts(){
