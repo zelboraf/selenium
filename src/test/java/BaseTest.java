@@ -1,7 +1,4 @@
-import devToPages.DevToMainPage;
-import devToPages.DevToSearchResults;
-import devToPages.DevToSinglePostPage;
-import devToPages.DevToWeekPage;
+import devToPages.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -99,24 +96,27 @@ public class BaseTest {
     }
     @Test
     public void playFourthPodcast(){
-        WebElement podcasts = driver.findElement(By.cssSelector("a[href=\"/pod\"]"));
-        highlightElement(driver, podcasts);
-        podcasts.click();
+        DevToMainPage devToMainPage = new DevToMainPage(driver, wait);
+        DevToPodcastsPage devToPodcastsPage = devToMainPage.goToPodcasts();
 
-        wait.until(ExpectedConditions.urlToBe("https://dev.to/pod"));
-        List<WebElement> podcastList = driver.findElements(By.cssSelector("h3"));
-        podcastList.get(3).click();
-
-        wait.until(ExpectedConditions.urlContains("stackpodcast"));
-        WebElement playArea = driver.findElement(By.className("record-wrapper"));
-        playArea.click();
-
-        WebElement initializing = driver.findElement(By.className("status-message"));
-        wait.until(ExpectedConditions.invisibilityOf(initializing));
-        String playAreaClassAtribute = playArea.getAttribute("class");
-        boolean isPlaying = playAreaClassAtribute.contains("playing");
-
-        assertTrue("Podcast is not playing", isPlaying);
+//        WebElement podcasts = driver.findElement(By.cssSelector("a[href=\"/pod\"]"));
+//        highlightElement(driver, podcasts);
+//        podcasts.click();
+//
+//        wait.until(ExpectedConditions.urlToBe("https://dev.to/pod"));
+//        List<WebElement> podcastList = driver.findElements(By.cssSelector("h3"));
+//        podcastList.get(3).click();
+//
+//        wait.until(ExpectedConditions.urlContains("stackpodcast"));
+//        WebElement playArea = driver.findElement(By.className("record-wrapper"));
+//        playArea.click();
+//
+//        WebElement initializing = driver.findElement(By.className("status-message"));
+//        wait.until(ExpectedConditions.invisibilityOf(initializing));
+//        String playAreaClassAtribute = playArea.getAttribute("class");
+//        boolean isPlaying = playAreaClassAtribute.contains("playing");
+//
+//        assertTrue("Podcast is not playing", isPlaying);
     }
     @After
     public void cleanUp() {
