@@ -10,6 +10,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -64,12 +66,17 @@ public class BaseTest {
     @Test
     public void searchBarTesting() {
         DevToMainPage devToMainPage = new DevToMainPage(driver, wait);
-        DevToSearchResults devToSearchResults = devToMainPage.search("testing");
+        String searchText = "testing";
+        DevToSearchResults devToSearchResults = devToMainPage.search(searchText);
 
-        String searchingUrlWithText = devToSearchResults.url + ;
+        String searchingUrlWithText = devToSearchResults.url + searchText;
+        wait.until(ExpectedConditions.urlToBe(searchingUrlWithText));
 
-
-
+        ArrayList<String> postTitleList = devToSearchResults.getTopThreePostTitles();
+        for (int i = 0; i < 3; i++) {
+            String postTileText = postTitleList.get(i).toLowerCase();
+            assertTrue(postTileText.contains(searchText));
+        }
 
 //        WebElement searchBox = driver.findElement(By.id("nav-search"));
 //        String searchText = "testing";
